@@ -36,9 +36,6 @@ namespace ExcelInstanceLoader
             this.buttonKillSelected = new System.Windows.Forms.Button();
             this.buttonKillAll = new System.Windows.Forms.Button();
             this.labelStatus = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.checkBoxSelectAll = new System.Windows.Forms.CheckBox();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
@@ -91,47 +88,14 @@ namespace ExcelInstanceLoader
             this.labelStatus.TabIndex = 2;
             this.labelStatus.Text = "Welcome!";
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.CheckOnClick = true;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(590, 144);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(171, 424);
-            this.checkedListBox1.TabIndex = 7;
-            this.checkedListBox1.Visible = false;
-            // 
-            // checkBoxSelectAll
-            // 
-            this.checkBoxSelectAll.AutoSize = true;
-            this.checkBoxSelectAll.Location = new System.Drawing.Point(590, 114);
-            this.checkBoxSelectAll.Name = "checkBoxSelectAll";
-            this.checkBoxSelectAll.Size = new System.Drawing.Size(70, 17);
-            this.checkBoxSelectAll.TabIndex = 8;
-            this.checkBoxSelectAll.Text = "Select All";
-            this.checkBoxSelectAll.UseVisualStyleBackColor = true;
-            this.checkBoxSelectAll.CheckedChanged += new System.EventHandler(this.checkBoxSelectAll_CheckedChanged);
-            this.checkBoxSelectAll.Visible = false;
-            // 
-            // listView1
-            // 
-            this.listView1.CheckBoxes = true;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(769, 145);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(176, 423);
-            this.listView1.TabIndex = 10;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.ListView_SelectedIndexChanged);
-            this.listView1.Visible = false;
-            // 
             // treeView1
             // 
             this.treeView1.CheckBoxes = true;
             this.treeView1.FullRowSelect = true;
             this.treeView1.Location = new System.Drawing.Point(53, 144);
             this.treeView1.Name = "treeView1";
+            treeNode1.Name = "";
+            treeNode1.Text = "All";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
             this.treeView1.Size = new System.Drawing.Size(521, 423);
@@ -143,12 +107,9 @@ namespace ExcelInstanceLoader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(957, 651);
+            this.ClientSize = new System.Drawing.Size(643, 651);
             this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.buttonKillAll);
-            this.Controls.Add(this.checkBoxSelectAll);
-            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.buttonKillSelected);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.buttonKillGhost);
@@ -166,10 +127,7 @@ namespace ExcelInstanceLoader
         private System.Windows.Forms.Button buttonKillGhost;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Button buttonKillSelected;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.CheckBox checkBoxSelectAll;
         private System.Windows.Forms.Button buttonKillAll;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.TreeView treeView1;
     }
 }

@@ -50,23 +50,6 @@ namespace ExcelInstanceLoader
                     m_processId2WbNames[processId.Key] = Utils.GetWorkbookNamesByProcessId(processId.Key);
             }
 
-            checkedListBox1.Items.Clear();
-            foreach (var item in m_processId2WbNames)
-            {
-                foreach (var wbName in item.Value)
-                    checkedListBox1.Items.Add(new Tuple<int, string>(item.Key, wbName), false);
-            }
-
-            listView1.Items.Clear();
-            foreach (var item in m_processId2WbNames)
-            {
-                foreach (var wbName in item.Value)
-                {
-                    var tuple = new Tuple<int, string>(item.Key, wbName);
-                    listView1.Items.Add(tuple.ToString());
-                }
-            }
-
             Utils.GenerateTreeView(treeView1, m_processId2WbNames);
 
             UpdateStatus();
@@ -80,7 +63,6 @@ namespace ExcelInstanceLoader
             m_checkedWbs = Utils.GetCheckedNodes(treeView1);
             int nSelected = 0;
             foreach (var item in m_checkedWbs) { nSelected += item.Value.Count; }
-            // var nSelected = listView1.CheckedItems.Count; // checkedListBox1.CheckedItems.Count;
             int nWbs = 0;
             foreach (var item in m_processId2WbNames)
             {
@@ -91,7 +73,7 @@ namespace ExcelInstanceLoader
             status += nWbs == 1 ? "  " : "s ";
             status += "(" + nSelected + " selected), " + nProcesses + " Excel process";
             status += nProcesses == 1 ? "   " : "es ";
-            status += "(" + nGhost + " invisible)!";
+            status += "(" + nGhost + " invisible).";
             labelStatus.Text = status;
         }
 
@@ -124,17 +106,6 @@ namespace ExcelInstanceLoader
         {
             Dictionary<int, List<string>> processId2WbNames = new Dictionary<int, List<string>>();
 
-            //foreach (var item in checkedListBox1.CheckedItems)
-            //{
-            //    if (item is Tuple<int, string> tuple)
-            //    {
-            //        if (processId2WbNames.ContainsKey(tuple.Item1))
-            //            processId2WbNames[tuple.Item1].Add(tuple.Item2);
-            //        else
-            //            processId2WbNames[tuple.Item1] = new List<string> { tuple.Item2 };
-            //    }
-            //}
-
             foreach (var item in m_checkedWbs)
             {
                 List<string> value = item.Value.Select(tuple => tuple.Item2).ToList();
@@ -143,31 +114,6 @@ namespace ExcelInstanceLoader
 
             if (Utils.CloseWorkbookByIdAndName(processId2WbNames))
             {
-                //for (int i = checkedListBox1.Items.Count - 1; i >= 0; --i)
-                //{
-                //    if (checkedListBox1.GetItemChecked(i))
-                //    {
-                //        checkedListBox1.Items.Remove(checkedListBox1.Items[i]);
-                //    }
-                //}
-
-                //foreach(var item in m_checkedWbs)
-                //{
-                //    var idx = treeView1.Nodes[0].Nodes.IndexOfKey(item.Key.ToString());
-                //    if (idx != -1)
-                //    {
-                //        TreeNode node = treeView1.Nodes[0].Nodes[idx];
-                //        for (int i=item.Value.Count-1; i>=0; --i)
-                //        {
-                //            node.Nodes.RemoveAt(item.Value[i].Item1);
-                //        }
-                //        if (node.Nodes.Count == 0)
-                //        {
-                //            treeView1.Nodes[0].Nodes.RemoveAt(idx);
-                //        }
-                //    }
-                //}
-
                 foreach (var item in processId2WbNames)
                 {
                     m_processId2WbNames[item.Key].RemoveAll(listItem => item.Value.Contains(listItem));
@@ -204,33 +150,11 @@ namespace ExcelInstanceLoader
                 m_excelProcesses.Clear();
                 m_checkedWbs.Clear();
                 treeView1.Nodes[0].Nodes.Clear();
-                listView1.Items.Clear();
-                checkedListBox1.Items.Clear();
 
                 Utils.GenerateTreeView(treeView1, m_processId2WbNames);
             }
 
             buttonKillGhost_Click(sender, e);
-        }
-
-        private void checkBoxSelectAll_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSelectAll.Checked)
-                checkBoxSelectAll.Text = "Unselect All";
-            else
-                checkBoxSelectAll.Text = "Select All";
-
-            foreach (ListViewItem listViewItem in listView1.Items)
-            {
-                listViewItem.Checked = checkBoxSelectAll.Checked;
-                listViewItem.Selected = checkBoxSelectAll.Checked;
-            }
-
-            // Clear the selection if the check state is false
-            if (!checkBoxSelectAll.Checked)
-            {
-                listView1.SelectedItems.Clear();
-            }
         }
 
         private void ListView_ItemChecked(object sender, ItemCheckedEventArgs e)
